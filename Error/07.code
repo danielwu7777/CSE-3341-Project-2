@@ -1,0 +1,6 @@
+program
+	int x;
+begin
+	x=input();
+end
+this is not good
