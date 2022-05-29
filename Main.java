@@ -1,5 +1,7 @@
+import java.io.IOException;
+
 class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// Initialize the scanner with the input file
 		Scanner S = new Scanner(args[0]);
 
@@ -7,9 +9,8 @@ class Main {
 
 		// Parse the program
 		Core firstToken = S.currentToken();
-		Program.parseProgram(firstToken, S);
-		
-
+		Program program = new Program();
+		program.parseProgram(firstToken, S);
 
 		// Perform semantic checks on the parse tree.
 
