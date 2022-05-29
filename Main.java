@@ -10,7 +10,7 @@ class Main {
 		// Parse the program
 		Core firstToken = S.currentToken();
 		Program program = new Program();
-		program.parseProgram(firstToken, S);
+		program.parse(firstToken, S);
 
 		// Perform semantic checks on the parse tree.
 

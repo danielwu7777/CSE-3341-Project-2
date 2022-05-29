@@ -4,9 +4,9 @@ class Cmpr {
     // 1 means '==', 2 means '<', 3 means '<='
     int whichCmpr;
 
-    public void parseCmpr(Core currentToken, Scanner S) throws IOException {
+    public void parse(Core currentToken, Scanner S) throws IOException {
         Expr expr = new Expr();
-        expr.parseExpr(currentToken, S);
+        expr.parse(currentToken, S);
         Core nextToken = S.nextToken();
         switch (nextToken) {
             case EQUAL:
@@ -21,8 +21,9 @@ class Cmpr {
             default:
                 S.t = Core.ERROR;
                 System.out.println("ERROR: <cmpr> must have '==', '<', or '<=' between the expressions");
+                System.exit(1);
         }
         nextToken = S.nextToken();
-        expr.parseExpr(nextToken, S);
+        expr.parse(nextToken, S);
     }
 }
