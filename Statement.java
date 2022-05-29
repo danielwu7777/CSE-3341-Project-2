@@ -32,4 +32,28 @@ class Statement {
         }
     }
 
+    public void print() {
+        switch (whichStatement) {
+            case 1:
+                Assign assign = new Assign();
+                assign.print();
+                break;
+            case 2:
+                If ifToken = new If();
+                ifToken.print();
+                break;
+            case 3:
+                Loop loop = new Loop();
+                loop.print();
+                break;
+            case 4:
+                Out out = new Out();
+                out.print();
+                break;
+            case 5:
+                Decl decl = new Decl();
+                decl.print();
+                break;
+        }
+    }
 }

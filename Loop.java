@@ -29,4 +29,16 @@ class Loop {
             }
         }
     }
+
+    public void print() {
+        System.out.print("while ");
+        Cond cond = new Cond();
+        cond.print();
+        System.out.println(" {");
+        System.out.print("       ");
+        StatementSeq statementSeq = new StatementSeq();
+        statementSeq.print();
+        System.out.println("   }");
+
+    }
 }

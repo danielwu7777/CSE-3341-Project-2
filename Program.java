@@ -41,4 +41,18 @@ class Program {
             }
         }
     }
+
+    public void print() {
+        System.out.println("program");
+        System.out.print("    ");
+        if (hasDeclSeq) {
+            DeclSeq declSeq = new DeclSeq();
+            declSeq.print();
+        }
+        System.out.println("begin");
+        System.out.print("    ");
+        StatementSeq statementSeq = new StatementSeq();
+        statementSeq.print();
+        System.out.print("end");
+    }
 }

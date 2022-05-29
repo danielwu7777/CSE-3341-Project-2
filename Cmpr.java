@@ -26,4 +26,23 @@ class Cmpr {
         nextToken = S.nextToken();
         expr.parse(nextToken, S);
     }
+
+    public void print() {
+        Expr expr = new Expr();
+        expr.print();
+        switch (whichCmpr) {
+            case 1:
+                System.out.print("==");
+                expr.print();
+                break;
+            case 2:
+                System.out.print(" < ");
+                expr.print();
+                break;
+            case 3:
+                System.out.print(" <= ");
+                expr.print();
+                break;
+        }
+    }
 }

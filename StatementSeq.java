@@ -19,4 +19,11 @@ class StatementSeq {
         }
     }
 
+    public void print() {
+        Statement statement = new Statement();
+        statement.print();
+        if (hasStatementSeq) {
+            print();
+        }
+    }
 }

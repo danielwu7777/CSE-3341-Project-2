@@ -23,4 +23,18 @@ class Expr {
             S.in.reset();
         }
     }
+
+    public void print() {
+        Term term = new Term();
+        term.print();
+        if (tokenAfterTerm == 1) {
+            System.out.print(" + ");
+            Expr expr = new Expr();
+            expr.print();
+        } else if (tokenAfterTerm == 2) {
+            System.out.print(" - ");
+            Expr expr = new Expr();
+            expr.print();
+        }
+    }
 }

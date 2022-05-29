@@ -20,4 +20,12 @@ class DeclInt {
         }
     }
 
+    public void print() {
+        System.out.print("    ");
+        System.out.println("int ");
+        IdList idList = new IdList();
+        idList.print();
+        System.out.println(";");
+    }
+
 }

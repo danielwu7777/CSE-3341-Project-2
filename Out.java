@@ -33,4 +33,11 @@ class Out {
             }
         }
     }
+
+    public void print() {
+        System.out.print("output(");
+        Expr expr = new Expr();
+        expr.print();
+        System.out.println(");");
+    }
 }

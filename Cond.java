@@ -39,4 +39,24 @@ class Cond {
             }
         }
     }
+
+    public void print() {
+        switch (whichCond) {
+            case 1:
+                Cmpr cmpr = new Cmpr();
+                cmpr.print();
+                break;
+            case 2:
+                System.out.print("!(");
+                print();
+                System.out.print(")");
+                break;
+            case 3:
+                Cmpr cmpr2 = new Cmpr();
+                cmpr2.print();
+                System.out.print("or");
+                print();
+                break;
+        }
+    }
 }

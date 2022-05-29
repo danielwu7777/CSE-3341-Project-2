@@ -20,4 +20,12 @@ class DeclRef {
         }
     }
 
+    public void print() {
+        System.out.print("    ");
+        System.out.println("ref ");
+        IdList idList = new IdList();
+        idList.print();
+        System.out.println(";");
+    }
+
 }

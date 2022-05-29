@@ -18,4 +18,14 @@ class Term {
             S.in.reset();
         }
     }
+
+    public void print() {
+        Factor factor = new Factor();
+        factor.print();
+        if (mult) {
+            System.out.print(" * ");
+            Term term = new Term();
+            term.print();
+        }
+    }
 }

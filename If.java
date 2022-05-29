@@ -64,4 +64,20 @@ class If {
         }
     }
 
+    public void print() {
+        System.out.print("if ");
+        Cond cond = new Cond();
+        cond.print();
+        System.out.println(" then {");
+        System.out.print("        ");
+        StatementSeq statementSeq = new StatementSeq();
+        statementSeq.print();
+        System.out.print("   }");
+        if (elseStatement) {
+            System.out.println(" else {");
+            System.out.print("        ");
+            statementSeq.print();
+            System.out.println("   }");
+        }
+    }
 }

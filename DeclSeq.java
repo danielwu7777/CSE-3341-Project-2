@@ -17,4 +17,11 @@ class DeclSeq {
         }
     }
 
+    public void print() {
+        Decl decl = new Decl();
+        decl.print();
+        if (hasDeclSeq) {
+            print();
+        }
+    }
 }

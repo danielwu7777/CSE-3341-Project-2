@@ -1,8 +1,12 @@
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 class Assign {
     // 1 meants 'input', 2 means <expr>, 3 means 'new', 4 means 'share'
     int tokenAfterAssign;
+    // List to store id's
+    List<String> list = new LinkedList<String>();
 
     public void parse(Core currentToken, Scanner S) throws IOException {
         // Must start with ID token
@@ -11,6 +15,8 @@ class Assign {
             System.out.println("ERROR: Assign must start with ID token");
             System.exit(1);
         } else {
+            // Get ID and add it to list
+            list.add(S.getID());
             Core nextToken = S.nextToken();
             // Next token must be '=' terminal
             if (nextToken != Core.ASSIGN) {
@@ -42,14 +48,32 @@ class Assign {
                     case ID: // <expr>
                         tokenAfterAssign = 2;
                         expr.parse(nextToken, S);
+                        nextToken = S.nextToken();
+                        if (nextToken != Core.SEMICOLON) {
+                            S.t = Core.ERROR;
+                            System.out.println("ERROR: Missing ';' after expr in <assign>");
+                            System.exit(1);
+                        }
                         break;
                     case CONST: // <expr>
                         tokenAfterAssign = 2;
                         expr.parse(nextToken, S);
+                        nextToken = S.nextToken();
+                        if (nextToken != Core.SEMICOLON) {
+                            S.t = Core.ERROR;
+                            System.out.println("ERROR: Missing ';' after expr in <assign>");
+                            System.exit(1);
+                        }
                         break;
                     case LPAREN: // <expr>
                         tokenAfterAssign = 2;
                         expr.parse(nextToken, S);
+                        nextToken = S.nextToken();
+                        if (nextToken != Core.SEMICOLON) {
+                            S.t = Core.ERROR;
+                            System.out.println("ERROR: Missing ';' after expr in <assign>");
+                            System.exit(1);
+                        }
                         break;
                     case NEW:
                         tokenAfterAssign = 3;
@@ -60,6 +84,13 @@ class Assign {
                             System.out.println(
                                     "ERROR: Token after 'new' terminal (in <assign>) must be 'class' terminal");
                             System.exit(1);
+                        } else {
+                            nextToken = S.nextToken();
+                            if (nextToken != Core.SEMICOLON) {
+                                S.t = Core.ERROR;
+                                System.out.println("ERROR: Missing ';' after 'class' in <assign>");
+                                System.exit(1);
+                            }
                         }
                         break;
                     case SHARE:
@@ -71,6 +102,15 @@ class Assign {
                             System.out.println(
                                     "ERROR: Token after 'share' terminal (in <assign>) must be 'id' terminal");
                             System.exit(1);
+                        } else {
+                            // Get ID, append a semicolon, and add to list
+                            list.add(S.getID() + ";");
+                            nextToken = S.nextToken();
+                            if (nextToken != Core.SEMICOLON) {
+                                S.t = Core.ERROR;
+                                System.out.println("ERROR: Missing ';' after 'share id' in <assign>");
+                                System.exit(1);
+                            }
                         }
                         break;
                     default:
@@ -86,6 +126,25 @@ class Assign {
                     System.exit(1);
                 }
             }
+        }
+    }
+
+    public void print() {
+        System.out.print(list.remove(0));
+        System.out.print(" = ");
+        switch (tokenAfterAssign) {
+            case 1:
+                System.out.println("input();");
+                break;
+            case 2:
+                Expr expr = new Expr();
+                expr.print();
+                break;
+            case 3:
+                System.out.println("new class;");
+                break;
+            case 4:
+                System.out.println("share " + list.remove(0) + ";");
         }
     }
 }
