@@ -14,10 +14,9 @@ class DeclInt {
             nextToken = S.nextToken();
             if (nextToken != Core.SEMICOLON) {
                 S.t = Core.ERROR;
-                System.out.println("ERROR: The last token in <decl-int> must be ';' terminal");
                 System.exit(1);
             }
-        }
+            if (nextToken == Core.SEMICOLON) {
     }
 
     public void print() {

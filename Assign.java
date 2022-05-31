@@ -48,32 +48,17 @@ class Assign {
                     case ID: // <expr>
                         tokenAfterAssign = 2;
                         expr.parse(nextToken, S);
-                        nextToken = S.nextToken();
-                        if (nextToken != Core.SEMICOLON) {
-                            S.t = Core.ERROR;
-                            System.out.println("ERROR: Missing ';' after expr in <assign>");
-                            System.exit(1);
-                        }
+
                         break;
                     case CONST: // <expr>
                         tokenAfterAssign = 2;
                         expr.parse(nextToken, S);
-                        nextToken = S.nextToken();
-                        if (nextToken != Core.SEMICOLON) {
-                            S.t = Core.ERROR;
-                            System.out.println("ERROR: Missing ';' after expr in <assign>");
-                            System.exit(1);
-                        }
+
                         break;
                     case LPAREN: // <expr>
                         tokenAfterAssign = 2;
                         expr.parse(nextToken, S);
-                        nextToken = S.nextToken();
-                        if (nextToken != Core.SEMICOLON) {
-                            S.t = Core.ERROR;
-                            System.out.println("ERROR: Missing ';' after expr in <assign>");
-                            System.exit(1);
-                        }
+
                         break;
                     case NEW:
                         tokenAfterAssign = 3;
@@ -84,13 +69,6 @@ class Assign {
                             System.out.println(
                                     "ERROR: Token after 'new' terminal (in <assign>) must be 'class' terminal");
                             System.exit(1);
-                        } else {
-                            nextToken = S.nextToken();
-                            if (nextToken != Core.SEMICOLON) {
-                                S.t = Core.ERROR;
-                                System.out.println("ERROR: Missing ';' after 'class' in <assign>");
-                                System.exit(1);
-                            }
                         }
                         break;
                     case SHARE:
@@ -105,12 +83,7 @@ class Assign {
                         } else {
                             // Get ID, append a semicolon, and add to list
                             list.add(S.getID() + ";");
-                            nextToken = S.nextToken();
-                            if (nextToken != Core.SEMICOLON) {
-                                S.t = Core.ERROR;
-                                System.out.println("ERROR: Missing ';' after 'share id' in <assign>");
-                                System.exit(1);
-                            }
+
                         }
                         break;
                     default:
@@ -122,8 +95,10 @@ class Assign {
                 nextToken = S.nextToken();
                 if (nextToken != Core.SEMICOLON) {
                     S.t = Core.ERROR;
-                    System.out.println("ERROR: The last token in <assign> must be ';' terminal");
+                    System.out.println("ERROR: Missing ';' after expr in <assign>");
                     System.exit(1);
+                }else{
+
                 }
             }
         }

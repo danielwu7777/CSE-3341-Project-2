@@ -27,11 +27,11 @@ class Program {
                 hasDeclSeq = true;
                 DeclSeq declSeq = new DeclSeq();
                 declSeq.parse(nextToken, S);
-                nextToken = S.nextToken();
+                nextToken = S.currentToken();
                 if (nextToken == Core.BEGIN) {
                     nextToken = S.nextToken();
                     statementSeq.parse(nextToken, S);
-                    nextToken = S.nextToken();
+                    nextToken = S.currentToken(); 
                     if (nextToken != Core.END) {
                         S.t = Core.ERROR;
                         System.out.println("ERROR: Program must end with end token");
