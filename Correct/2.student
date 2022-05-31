@@ -1,5 +1,8 @@
+SUBthis should be EQUAL
+CONSTwonder what
+10thsi should be 1
 program
     int x;
 begin
-    x=0-10;
+    x=0;
 end

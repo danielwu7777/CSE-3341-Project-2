@@ -12,7 +12,8 @@ class Expr {
         term.parse(currentToken, S);
         // Save scanner position
         S.in.mark(1);
-        Core nextToken = S.nextToken();
+        Core nextToken = S.nextToken(); // THERE'S A PROBLEM HERE: should be on EQUAL token but reads = and then constant 1
+        nextToken = S.nextToken();
         if (nextToken == Core.ADD) {
             list.add(1);
             nextToken = S.nextToken();
@@ -31,18 +32,17 @@ class Expr {
     public void print() {
         Term term = new Term();
         term.print();
-        Expr expr = new Expr();
         switch (list.remove(0)) {
             case 0:
                 // Just a single term
                 break;
             case 1:
                 System.out.print("+");
-                expr.print();
+                print();
                 break;
             case 2:
                 System.out.print("-");
-                expr.print();
+                print();
                 break;
         }
     }

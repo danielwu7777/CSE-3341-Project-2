@@ -1,3 +1,6 @@
+RPARENthis should be EQUAL
+SEMICOLONwonder what
+4thsi should be 1
 program
     int x, y, z;
     ref 

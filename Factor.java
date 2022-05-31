@@ -16,7 +16,7 @@ class Factor {
             listID.add(S.getID());
             listINT.add(1);
         } else if (currentToken == Core.CONST) {
-            // Add CONST from scanner and add to list as a string
+            // Add CONST from scanner and add to queue as a string
             listID.add(Integer.toString(S.getCONST()));
             listINT.add(2);
         } else if (currentToken == Core.LPAREN) {

@@ -1,6 +1,2 @@
-program
-    int x;
-begin
-    x=1*2*3*4;
-output(x);
-end
+SEMICOLONthis should be EQUAL
+OUTPUTwonder what

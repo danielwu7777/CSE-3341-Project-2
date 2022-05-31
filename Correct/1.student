@@ -1,5 +1,2 @@
-program
-    int x;
-begin
-    x=10;
-end
+SEMICOLONthis should be EQUAL
+ENDwonder what
