@@ -16,7 +16,7 @@ class DeclInt {
                 S.t = Core.ERROR;
                 System.exit(1);
             }
-            if (nextToken == Core.SEMICOLON) {
+        }
     }
 
     public void print() {
@@ -26,5 +26,4 @@ class DeclInt {
         idList.print();
         System.out.println(";");
     }
-
 }
