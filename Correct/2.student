@@ -1,4 +1,5 @@
 program
-    false
-we should NOT get here
-    ref 
+    int x;
+begin
+    x=0-10;
+end

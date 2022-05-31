@@ -20,8 +20,7 @@ class DeclInt {
     }
 
     public void print() {
-        System.out.print("    ");
-        System.out.println("int ");
+        System.out.print("int ");
         IdList idList = new IdList();
         idList.print();
         System.out.println(";");

@@ -1,7 +1,11 @@
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Term {
-    boolean mult = false;
+    // Queue to keep track of if there's a multiplication symbol where
+    // 1 means there is '*' and 0 means there isn't 
+    static Queue<Integer> queue = new LinkedList<Integer>();
 
     public void parse(Core currentToken, Scanner S) throws IOException {
         Factor factor = new Factor();
@@ -10,22 +14,23 @@ class Term {
         S.in.mark(1);
         Core nextToken = S.nextToken();
         if (nextToken == Core.MULT) {
-            mult = true;
+            queue.add(1);
             nextToken = S.nextToken();
             parse(nextToken, S);
         } else {
+            queue.add(0);
             // Reset scanner position
             S.in.reset();
         }
     }
 
-    public void print() {
+    public void print() { 
         Factor factor = new Factor();
         factor.print();
-        if (mult) {
-            System.out.print(" * ");
-            Term term = new Term();
-            term.print();
+        int removed = queue.remove();
+        if (removed == 1) {
+            System.out.print("*");
+            print();
         }
     }
 }

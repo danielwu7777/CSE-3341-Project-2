@@ -1,7 +1,11 @@
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class If {
-    boolean elseStatement = false;
+    // Queue to store if an 'else' statement exists where
+    // 1 means means it exists and 0 means it does not
+    static Queue<Integer> queue = new LinkedList<Integer>();
 
     public void parse(Core currentToken, Scanner S) throws IOException {
         if (currentToken != Core.IF) {
@@ -38,6 +42,7 @@ class If {
                     S.in.mark(1);
                     nextToken = S.nextToken();
                     if (nextToken == Core.ELSE) {
+                        queue.add(1);
                         nextToken = S.nextToken();
                         if (nextToken != Core.LBRACE) {
                             S.t = Core.ERROR;
@@ -55,9 +60,9 @@ class If {
                             }
                         }
                     } else {
+                        queue.add(0);
                         // Reset scanner position
                         S.in.reset();
-                        elseStatement = false;
                     }
                 }
             }
@@ -73,7 +78,7 @@ class If {
         StatementSeq statementSeq = new StatementSeq();
         statementSeq.print();
         System.out.print("   }");
-        if (elseStatement) {
+        if (queue.remove() == 1) {
             System.out.println(" else {");
             System.out.print("        ");
             statementSeq.print();

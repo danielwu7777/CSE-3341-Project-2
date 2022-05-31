@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 class Program {
-    boolean hasDeclSeq = false;
+    static boolean hasDeclSeq = false;
 
     public void parse(Core currentToken, Scanner S) throws IOException {
         // Program must start with program token

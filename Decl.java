@@ -1,16 +1,20 @@
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Decl {
 
-    boolean isDeclInt; // this isnt getting saved after parsing!!!!!!!!!!!!!!!!!!!!!!111
+    // Queue to store which type of declaration where 
+    // 1 means just <decl-int>, and 2 means <decl-ref>
+    static Queue<Integer> queue = new LinkedList<Integer>();
 
     public void parse(Core currentToken, Scanner S) throws IOException {
         if (currentToken == Core.INT) {
-            isDeclInt = true;
+            queue.add(1);
             DeclInt declInt = new DeclInt();
             declInt.parse(currentToken, S);
         } else if (currentToken == Core.REF) {
-            isDeclInt = false;
+            queue.add(2);
             DeclRef declRef = new DeclRef();
             declRef.parse(currentToken, S);
         } else {
@@ -21,16 +25,12 @@ class Decl {
     }
 
     public void print() {
-        System.out.println(isDeclInt);
-        if (isDeclInt) {
-            System.out.println("we should get here");
+        if (queue.remove() == 1) {
             DeclInt declInt = new DeclInt();
             declInt.print();
         } else {
-            System.out.println("we should NOT get here");
             DeclRef declRef = new DeclRef();
             declRef.print();
         }
     }
-
 }

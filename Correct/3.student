@@ -1,4 +1,6 @@
 program
-    false
-we should NOT get here
-    ref 
+    int x;
+begin
+    x=1;
+    x=x+x*x;
+end

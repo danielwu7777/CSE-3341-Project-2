@@ -1,12 +1,15 @@
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Cond {
-    // 1 means <cond>, 2 means !(<cond>), 3 means <expr> or <expr>
-    int whichCond;
+    // Queue to store which condition where 
+    // 1 means just <cmpr>, 2 means negation, 3 means 'or''
+    static Queue<Integer> queue = new LinkedList<Integer>();
 
     public void parse(Core currentToken, Scanner S) throws IOException {
         if (currentToken == Core.NEGATION) {
-            whichCond = 2;
+            queue.add(2);
             Core nextToken = S.nextToken();
             if (nextToken != Core.LPAREN) {
                 S.t = Core.ERROR;
@@ -29,19 +32,19 @@ class Cond {
             S.in.mark(1);
             Core nextToken = S.nextToken();
             if (nextToken == Core.OR) {
-                whichCond = 3;
+                queue.add(3);
                 nextToken = S.nextToken();
                 parse(nextToken, S);
             } else {
+                queue.add(1);
                 // Reset scanner position
                 S.in.reset();
-                whichCond = 1;
             }
         }
     }
 
     public void print() {
-        switch (whichCond) {
+        switch (queue.remove()) {
             case 1:
                 Cmpr cmpr = new Cmpr();
                 cmpr.print();

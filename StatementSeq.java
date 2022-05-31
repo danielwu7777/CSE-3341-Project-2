@@ -1,7 +1,11 @@
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class StatementSeq {
-    boolean hasStatementSeq = false;
+    // Queue to keep track of if there's a statement sequence where
+    // 1 means it exists and 0 means it doesn't
+    static Queue<Integer> queue = new LinkedList<Integer>();
 
     public void parse(Core currentToken, Scanner S) throws IOException {
         Statement statement = new Statement();
@@ -11,9 +15,10 @@ class StatementSeq {
         Core nextToken = S.nextToken();
         if (nextToken == Core.ID || nextToken == Core.IF || nextToken == Core.WHILE || nextToken == Core.OUTPUT
                 || nextToken == Core.INT || nextToken == Core.REF) {
-            hasStatementSeq = true;
+            queue.add(1);
             parse(nextToken, S);
         } else {
+            queue.add(0);
             // Reset scanner position
             S.in.reset();
         }
@@ -22,7 +27,7 @@ class StatementSeq {
     public void print() {
         Statement statement = new Statement();
         statement.print();
-        if (hasStatementSeq) {
+        if (queue.remove() == 1) {
             print();
         }
     }

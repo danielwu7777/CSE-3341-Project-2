@@ -3,22 +3,24 @@ import java.util.LinkedList;
 import java.util.List;
 
 class Factor {
-    // 1 means 'id', 2 means 'const', 3 means '('
-    int whichFactor;
+
     // List to store id's
-    List<String> list = new LinkedList<String>();
+    static List<String> listID = new LinkedList<String>();
+    // List to store types of factors where 
+    // 1 means 'id', 2 means 'const', and 3 means '('
+    static List<Integer> listINT = new LinkedList<Integer>();
 
     public void parse(Core currentToken, Scanner S) throws IOException {
         if (currentToken == Core.ID) {
             // Add get ID from scanner and add to list
-            list.add(S.getID());
-            whichFactor = 1;
+            listID.add(S.getID());
+            listINT.add(1);
         } else if (currentToken == Core.CONST) {
             // Add CONST from scanner and add to list as a string
-            list.add(Integer.toString(S.getCONST()));
-            whichFactor = 2;
+            listID.add(Integer.toString(S.getCONST()));
+            listINT.add(2);
         } else if (currentToken == Core.LPAREN) {
-            whichFactor = 3;
+            listINT.add(3);
             Core nextToken = S.nextToken();
             Expr expr = new Expr();
             expr.parse(nextToken, S);
@@ -37,20 +39,21 @@ class Factor {
     }
 
     public void print() {
-        switch (whichFactor) {
-            case 1:
-                System.out.print(list.remove(0));
-                break;
-            case 2:
-                System.out.print(list.remove(0));
-                break;
-            case 3:
-                System.out.print("(");
-                Expr expr = new Expr();
-                expr.print();
-                System.out.print(")");
-                break;
+        if (listINT.size() > 0) {
+            switch (listINT.remove(0)) {
+                case 1:
+                    System.out.print(listID.remove(0));
+                    break;
+                case 2:
+                    System.out.print(listID.remove(0));
+                    break;
+                case 3:
+                    System.out.print("(");
+                    Expr expr = new Expr();
+                    expr.print();
+                    System.out.print(")");
+                    break;
+            }
         }
     }
-
 }

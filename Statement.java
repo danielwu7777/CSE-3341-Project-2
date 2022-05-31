@@ -1,28 +1,32 @@
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Statement {
-    // 1 means <assign>, 2 means <if>, 3 means <loop>, 4 means <out>, 5 means <decl>
-    int whichStatement;
+    
+    // Queue to keep track of types of statements where 
+    // 1 means <assign>, 2 means <if>, 3 means <loop>, 4 means <out>, 5 means <decl> 
+    static Queue<Integer> queue = new LinkedList<Integer>();
 
     public void parse(Core currentToken, Scanner S) throws IOException {
         if (currentToken == Core.ID) {
-            whichStatement = 1;
+            queue.add(1);
             Assign assign = new Assign();
             assign.parse(currentToken, S);
         } else if (currentToken == Core.IF) {
-            whichStatement = 2;
+            queue.add(2);
             If ifToken = new If();
             ifToken.parse(currentToken, S);
         } else if (currentToken == Core.WHILE) {
-            whichStatement = 3;
+            queue.add(3);
             Loop loop = new Loop();
             loop.parse(currentToken, S);
         } else if (currentToken == Core.OUTPUT) {
-            whichStatement = 4;
+            queue.add(4);
             Out out = new Out();
             out.parse(currentToken, S);
         } else if (currentToken == Core.INT || currentToken == Core.REF) {
-            whichStatement = 5;
+            queue.add(5);
             Decl decl = new Decl();
             decl.parse(currentToken, S);
         } else {
@@ -33,7 +37,7 @@ class Statement {
     }
 
     public void print() {
-        switch (whichStatement) {
+        switch (queue.remove()) {
             case 1:
                 Assign assign = new Assign();
                 assign.print();

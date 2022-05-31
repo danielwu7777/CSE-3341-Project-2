@@ -1,8 +1,11 @@
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Cmpr {
-    // 1 means '==', 2 means '<', 3 means '<='
-    int whichCmpr;
+    // Queue to store which comparator where
+    // 1 means means '==', 2 means '<', 3 means'<=''
+    static Queue<Integer> queue = new LinkedList<Integer>();
 
     public void parse(Core currentToken, Scanner S) throws IOException {
         Expr expr = new Expr();
@@ -10,13 +13,13 @@ class Cmpr {
         Core nextToken = S.nextToken();
         switch (nextToken) {
             case EQUAL:
-                whichCmpr = 1;
+                queue.add(1);
                 break;
             case LESS:
-                whichCmpr = 2;
+                queue.add(2);
                 break;
             case LESSEQUAL:
-                whichCmpr = 3;
+                queue.add(3);
                 break;
             default:
                 S.t = Core.ERROR;
@@ -30,7 +33,7 @@ class Cmpr {
     public void print() {
         Expr expr = new Expr();
         expr.print();
-        switch (whichCmpr) {
+        switch (queue.remove()) {
             case 1:
                 System.out.print("==");
                 expr.print();
