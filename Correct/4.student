@@ -1,4 +1,4 @@
-ASSIGNthis should be EQUAL
-CONSTwonder what
-1thsi should be 1
+EQUALthis should be ==
+EQUAL this should be 1
+ASSIGN
 ERROR: <cmpr> must have '==', '<', or '<=' between the expressions

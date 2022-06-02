@@ -1,1 +1,5 @@
-ERROR: <cmpr> must have '==', '<', or '<=' between the expressions
+SEMICOLON this should be equal
+class Core this should be 1
+SEMICOLON this should be equal
+class Core this should be 1
+ERROR: Missing ';' after expr in <assign>

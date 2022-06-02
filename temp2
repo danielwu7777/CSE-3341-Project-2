@@ -1,1 +1,1 @@
-programintx,y;beginx=1;y=2;output(x);output(y);end
+programintx;beginif1==1then{x=1;}else{x=2;}output(x);end

@@ -1,12 +1,5 @@
-program
-    int x, y, z;
-int a, b, c;
-begin
-    x=5;
-    y=2;
-    z=x-y*5-5;
-    a=z;
-    b=z;
-    c=x+y-z*(a*b);
-output(c);
-end
+SEMICOLON this should be equal
+class Core this should be 1
+SUB this should be equal
+class Core this should be 1
+ERROR: Missing ';' after expr in <assign>

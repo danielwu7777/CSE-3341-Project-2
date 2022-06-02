@@ -1,2 +1,4 @@
-SEMICOLONthis should be EQUAL
-IDwonder what
+SEMICOLONthis should be ==
+SEMICOLON this should be 1
+SEMICOLON
+ERROR: Missing ';' after expr in <assign>

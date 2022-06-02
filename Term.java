@@ -13,6 +13,7 @@ class Term {
         // Save scanner position
         S.in.mark(1);
         Core nextToken = S.nextToken();
+        System.out.println(S.currentToken() + "this should be =="); // something wrong here
         if (nextToken == Core.MULT) {
             queue.add(1);
             nextToken = S.nextToken();
@@ -20,7 +21,9 @@ class Term {
         } else {
             queue.add(0);
             // Reset scanner position
-            S.in.reset();
+            S.in.reset(); 
+            System.out.println(S.currentToken() + " this should be 1");
+            System.out.println(S.nextToken());
         }
     }
 

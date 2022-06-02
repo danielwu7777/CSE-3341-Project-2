@@ -1,1 +1,5 @@
+SEMICOLON this should be equal
+class Core this should be 1
+EQUAL this should be equal
+class Core this should be 1
 ERROR: <cmpr> must have '==', '<', or '<=' between the expressions

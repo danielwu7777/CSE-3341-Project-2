@@ -1,6 +1,6 @@
-SUBthis should be EQUAL
-CONSTwonder what
-10thsi should be 1
+SUBthis should be ==
+SUB this should be 1
+SUB
 program
     int x;
 begin
