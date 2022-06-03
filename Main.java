@@ -12,9 +12,8 @@ class Main {
 		// Generate parse tree for the input Core program using recursive descent.
 
 		// Parse the program
-		Core firstToken = S.currentToken();
 		Program program = new Program();
-		program.parse(firstToken, S);
+		program.parse(S);
 
 		// Perform semantic checks on the parse tree.
 

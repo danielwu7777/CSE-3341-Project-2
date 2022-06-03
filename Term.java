@@ -4,36 +4,29 @@ import java.util.Queue;
 
 class Term {
     // Queue to keep track of if there's a multiplication symbol where
-    // 1 means there is '*' and 0 means there isn't 
-    static Queue<Integer> queue = new LinkedList<Integer>();
+    // true means there is '*' and false means there isn't
+    Queue<Boolean> queueIsMult = new LinkedList<Boolean>();
+    Factor factor;
+    Term term;
 
-    public void parse(Core currentToken, Scanner S) throws IOException {
-        Factor factor = new Factor();
-        factor.parse(currentToken, S);
-        // Save scanner position
-        S.in.mark(1);
-        Core nextToken = S.nextToken();
-        System.out.println(S.currentToken() + "this should be =="); // something wrong here
-        if (nextToken == Core.MULT) {
-            queue.add(1);
-            nextToken = S.nextToken();
-            parse(nextToken, S);
+    public void parse(Scanner S) throws IOException {
+        factor = new Factor();
+        factor.parse(S);
+        if (S.currentToken() == Core.MULT) {
+            queueIsMult.add(true);
+            S.nextToken();
+            term = new Term();
+            term.parse(S);
         } else {
-            queue.add(0);
-            // Reset scanner position
-            S.in.reset(); 
-            System.out.println(S.currentToken() + " this should be 1");
-            System.out.println(S.nextToken());
+            queueIsMult.add(false);
         }
     }
 
-    public void print() { 
-        Factor factor = new Factor();
+    public void print() {
         factor.print();
-        int removed = queue.remove();
-        if (removed == 1) {
+        if (queueIsMult.remove()) {
             System.out.print("*");
-            print();
+            term.print();
         }
     }
 }

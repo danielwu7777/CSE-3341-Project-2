@@ -1,35 +1,29 @@
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Queue;
 
 class Decl {
+    // Boolean to store which <decl> where
+    // true means <decl-int> and false means <decl-ref>
+    boolean b;
+    DeclInt declInt;
+    DeclRef declRef;
 
-    // Queue to store which type of declaration where 
-    // 1 means just <decl-int>, and 2 means <decl-ref>
-    static Queue<Integer> queue = new LinkedList<Integer>();
-
-    public void parse(Core currentToken, Scanner S) throws IOException {
-        if (currentToken == Core.INT) {
-            queue.add(1);
-            DeclInt declInt = new DeclInt();
-            declInt.parse(currentToken, S);
-        } else if (currentToken == Core.REF) {
-            queue.add(2);
-            DeclRef declRef = new DeclRef();
-            declRef.parse(currentToken, S);
+    public void parse(Scanner S) throws IOException {
+        if (S.currentToken() == Core.INT) {
+            b = true;
+            declInt = new DeclInt();
+            declInt.parse(S);
         } else {
-            S.t = Core.ERROR;
-            System.out.println("ERROR: <decl> must start with 'int' or 'ref' token");
-            System.exit(1);
+            // Must be <decl-ref>
+            b = false;
+            declRef = new DeclRef();
+            declRef.parse(S);
         }
     }
 
     public void print() {
-        if (queue.remove() == 1) {
-            DeclInt declInt = new DeclInt();
+        if (b) {
             declInt.print();
         } else {
-            DeclRef declRef = new DeclRef();
             declRef.print();
         }
     }

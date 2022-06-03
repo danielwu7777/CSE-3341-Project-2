@@ -1,4 +1,9 @@
-RPARENthis should be ==
-RPAREN this should be 1
-SEMICOLON
-ERROR: The token after expr in <out> must be ')' terminal
+program
+    int x, y, z;
+ref 
+a, b, c;
+begin
+    x=input();
+output(4);
+a=new class;
+end

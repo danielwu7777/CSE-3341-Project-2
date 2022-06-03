@@ -1,27 +1,28 @@
 import java.io.IOException;
 
 class DeclInt {
+    IdList idList;
 
-    public void parse(Core currentToken, Scanner S) throws IOException {
-        if (currentToken != Core.INT) {
+    public void parse(Scanner S) throws IOException {
+        if (S.currentToken() != Core.INT) {
             S.t = Core.ERROR;
-            System.out.println("ERROR: <decl-int> must end start 'int' token");
+            System.out.println("ERROR: <decl-int> must start with 'int' token");
             System.exit(1);
         } else {
-            Core nextToken = S.nextToken();
-            IdList idList = new IdList();
-            idList.parse(nextToken, S);
-            nextToken = S.nextToken();
-            if (nextToken != Core.SEMICOLON) {
+            S.nextToken();
+            idList = new IdList();
+            idList.parse(S);
+            if (S.currentToken() != Core.SEMICOLON) {
                 S.t = Core.ERROR;
+                System.out.println("ERROR: <decl-int> must end with semicolon");
                 System.exit(1);
             }
+            S.nextToken();
         }
     }
 
     public void print() {
         System.out.print("int ");
-        IdList idList = new IdList();
         idList.print();
         System.out.println(";");
     }

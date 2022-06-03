@@ -1,5 +1,8 @@
-SEMICOLON this should be equal
-class Core this should be 1
-MULT this should be equal
-class Core this should be 1
-ERROR: The 1st token in <factor> must be 'id', 'const', or '(' terminal
+program
+    int x, y, z;
+begin
+    x=5;
+y=10;
+z=x*y+5;
+output(z);
+end

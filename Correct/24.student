@@ -1,5 +1,14 @@
-SEMICOLON this should be equal
-class Core this should be 1
-EQUAL this should be equal
-class Core this should be 1
-ERROR: <cmpr> must have '==', '<', or '<=' between the expressions
+program
+    int x, y, z;
+begin
+    x=5;
+y=10;
+while !(x==y) {
+       if x<=y then {
+        x=x+2;
+   }if !(x<y) then {
+        y=y+1;
+   }   }
+output(x);
+output(y);
+end

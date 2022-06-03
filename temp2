@@ -1,1 +1,1 @@
-programintx;beginif1==1then{x=1;}else{x=2;}output(x);end
+programintx,y,z;beginx=5;y=10;z=x*y+5;output(z);end

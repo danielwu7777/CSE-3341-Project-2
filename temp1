@@ -1,1 +1,1 @@
-EQUALthisshouldbe==EQUALthisshouldbe1ASSIGNERROR:<cmpr>musthave'==','<',or'<='betweentheexpressions
+programintx,y,z;beginx=5;y=10;z=x*y+5;output(z);end

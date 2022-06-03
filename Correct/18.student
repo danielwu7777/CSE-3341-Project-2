@@ -1,5 +1,8 @@
-SEMICOLON this should be equal
-class Core this should be 1
-SUB this should be equal
-class Core this should be 1
-ERROR: Missing ';' after expr in <assign>
+program
+    int x, y, z;
+begin
+    x=5;
+y=10;
+z=x-y-5-5;
+output(z);
+end

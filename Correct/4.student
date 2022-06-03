@@ -1,4 +1,7 @@
-EQUALthis should be ==
-EQUAL this should be 1
-ASSIGN
-ERROR: <cmpr> must have '==', '<', or '<=' between the expressions
+program
+    int x;
+begin
+    if 1==1 then {
+        x=10;
+   }output(x);
+end

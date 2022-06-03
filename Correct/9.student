@@ -1,4 +1,6 @@
-SEMICOLONthis should be ==
-SEMICOLON this should be 1
-OUTPUT
-ERROR: Missing ';' after expr in <assign>
+program
+    int x;
+begin
+    x=10;
+output(x);
+end

@@ -1,44 +1,42 @@
 import java.io.IOException;
 
 class Loop {
+    Cond cond;
+    StatementSeq stmtSeq;
 
-    public void parse(Core currentToken, Scanner S) throws IOException {
-        if (currentToken != Core.WHILE) {
+    public void parse(Scanner S) throws IOException {
+        if (S.currentToken() != Core.WHILE) {
             S.t = Core.ERROR;
             System.out.println("ERROR: <loop> must start with 'while' terminal");
             System.exit(1);
         } else {
-            Core nextToken = S.nextToken();
-            Cond cond = new Cond();
-            cond.parse(nextToken, S);
-            nextToken = S.nextToken();
-            if (nextToken != Core.LBRACE) {
+            S.nextToken();
+            cond = new Cond();
+            cond.parse(S);
+            if (S.currentToken() != Core.LBRACE) {
                 S.t = Core.ERROR;
                 System.out.println("ERROR: The 3rd token in <loop> must be the '{'terminal");
                 System.exit(1);
             } else {
-                nextToken = S.nextToken();
-                StatementSeq statementSeq = new StatementSeq();
-                statementSeq.parse(nextToken, S);
-                nextToken = S.nextToken();
-                if (nextToken != Core.RBRACE) {
+                S.nextToken();
+                stmtSeq = new StatementSeq();
+                stmtSeq.parse(S);
+                if (S.currentToken() != Core.RBRACE) {
                     S.t = Core.ERROR;
                     System.out.println("ERROR: The last in <loop> must be the '}'terminal");
                     System.exit(1);
                 }
+                S.nextToken();
             }
         }
     }
 
     public void print() {
         System.out.print("while ");
-        Cond cond = new Cond();
         cond.print();
         System.out.println(" {");
         System.out.print("       ");
-        StatementSeq statementSeq = new StatementSeq();
-        statementSeq.print();
+        stmtSeq.print();
         System.out.println("   }");
-
     }
 }

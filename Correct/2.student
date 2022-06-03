@@ -1,8 +1,5 @@
-SUBthis should be ==
-SUB this should be 1
-SUB
 program
     int x;
 begin
-    x=0;
+    x=0-10;
 end

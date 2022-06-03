@@ -1,5 +1,11 @@
-SEMICOLON this should be equal
-class Core this should be 1
-EQUAL this should be equal
-class Core this should be 1
-ERROR: <cmpr> must have '==', '<', or '<=' between the expressions
+program
+    int x, n;
+begin
+    n=5;
+x=4;
+while !(x==0) {
+       n=n*x;
+x=x-1;
+output(n);
+   }
+end

@@ -1,3 +1,10 @@
-SEMICOLON this should be equal
-class Core this should be 1
-ERROR: Missing ';' after expr in <assign>
+program
+    int x, n;
+begin
+    x=4;
+while !(x==0) {
+       n=input();
+x=x-1;
+output(n);
+   }
+end

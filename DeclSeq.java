@@ -3,30 +3,31 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class DeclSeq {
-    // Queue to store if <decl-seq> exists where 
-    // 1 means it exists and 0 means it does not
-    static Queue<Integer> queue = new LinkedList<Integer>();
+    // Boolean to store if <decl-seq> exists where
+    // true means it exists and false means it does not
+    boolean b;
+    // Queue to store <decl>'s
+    Queue<Decl> queueDecl = new LinkedList<Decl>();
+    Decl decl;
+    DeclSeq declSeq;
 
-    public void parse(Core currentToken, Scanner S) throws IOException {
-        Decl decl = new Decl();
-        decl.parse(currentToken, S);
-        // Save scanner position
-        S.in.mark(1);
-        Core nextToken = S.nextToken();
-        if (nextToken == Core.INT || nextToken == Core.REF) {
-            queue.add(1);
-            parse(nextToken, S);
+    public void parse(Scanner S) throws IOException {
+        decl = new Decl();
+        decl.parse(S);
+        queueDecl.add(decl);
+        if (S.currentToken() != Core.BEGIN) {
+            b = true;
+            declSeq = new DeclSeq();
+            declSeq.parse(S);
         } else {
-            queue.add(0);
-            S.in.reset();
+            b = false;
         }
     }
 
     public void print() {
-        Decl decl = new Decl();
-        decl.print();
-        if (queue.remove() == 1) {
-            print();
+        queueDecl.remove().print();
+        if (b) {
+            declSeq.print();
         }
     }
 }

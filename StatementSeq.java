@@ -3,32 +3,31 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class StatementSeq {
-    // Queue to keep track of if there's a statement sequence where
-    // 1 means it exists and 0 means it doesn't
-    static Queue<Integer> queue = new LinkedList<Integer>();
+    // Boolean to store if <stmt-seq> exists where
+    // true means it exists and false means it does not
+    boolean b;
+    // Queue to store <stmt>'s
+    Queue<Statement> queueStmts = new LinkedList<Statement>();
+    Statement stmt;
+    StatementSeq stmtSeq;
 
-    public void parse(Core currentToken, Scanner S) throws IOException {
-        Statement statement = new Statement();
-        statement.parse(currentToken, S);
-        // Save scanner position
-        S.in.mark(1);
-        Core nextToken = S.nextToken();
-        if (nextToken == Core.ID || nextToken == Core.IF || nextToken == Core.WHILE || nextToken == Core.OUTPUT
-                || nextToken == Core.INT || nextToken == Core.REF) {
-            queue.add(1);
-            parse(nextToken, S);
+    public void parse(Scanner S) throws IOException {
+        stmt = new Statement();
+        stmt.parse(S);
+        queueStmts.add(stmt);
+        if (S.currentToken() == Core.END || S.currentToken() == Core.RBRACE) {
+            b = false;
         } else {
-            queue.add(0);
-            // Reset scanner position
-            S.in.reset();
+            b = true;
+            stmtSeq = new StatementSeq();
+            stmtSeq.parse(S);
         }
     }
 
     public void print() {
-        Statement statement = new Statement();
-        statement.print();
-        if (queue.remove() == 1) {
-            print();
+        queueStmts.remove().print();
+        if (b) {
+            stmtSeq.print();
         }
     }
 }

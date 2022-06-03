@@ -3,62 +3,60 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class Cond {
-    // Queue to store which condition where 
+    // Queue to store which condition where
     // 1 means just <cmpr>, 2 means negation, 3 means 'or''
-    static Queue<Integer> queue = new LinkedList<Integer>();
+    Queue<Integer> queueWhichCond = new LinkedList<Integer>();
+    Cmpr cmpr;
+    Cond cond;
 
-    public void parse(Core currentToken, Scanner S) throws IOException {
-        if (currentToken == Core.NEGATION) {
-            queue.add(2);
-            Core nextToken = S.nextToken();
-            if (nextToken != Core.LPAREN) {
+    public void parse(Scanner S) throws IOException {
+        if (S.currentToken() == Core.NEGATION) {
+            queueWhichCond.add(2);
+            if (S.nextToken() != Core.LPAREN) {
                 S.t = Core.ERROR;
                 System.out.println("ERROR: The token after '!' in <cond> must be '(' terminal");
                 System.exit(1);
             } else {
-                nextToken = S.nextToken();
-                parse(nextToken, S);
-                nextToken = S.nextToken();
-                if (nextToken != Core.RPAREN) {
+                S.nextToken();
+                cond = new Cond();
+                cond.parse(S);
+                if (S.currentToken() != Core.RPAREN) {
                     S.t = Core.ERROR;
                     System.out.println("ERROR: Missing the last ')' termimal in !(<cond>)");
                     System.exit(1);
                 }
+                S.nextToken();
             }
         } else {
-            Cmpr cmpr = new Cmpr();
-            cmpr.parse(currentToken, S);
-            // Save scanner position
-            S.in.mark(1);
-            Core nextToken = S.nextToken();
-            if (nextToken == Core.OR) {
-                queue.add(3);
-                nextToken = S.nextToken();
-                parse(nextToken, S);
+            cmpr = new Cmpr();
+            cmpr.parse(S);
+            if (S.currentToken() != Core.OR) {
+                queueWhichCond.add(1);
             } else {
-                queue.add(1);
-                // Reset scanner position
-                S.in.reset();
+                // Current token is 'or'
+                queueWhichCond.add(3);
+                S.nextToken();
+                cond = new Cond();
+                cond.parse(S);
+                S.nextToken();
             }
         }
     }
 
     public void print() {
-        switch (queue.remove()) {
+        switch (queueWhichCond.remove()) {
             case 1:
-                Cmpr cmpr = new Cmpr();
                 cmpr.print();
                 break;
             case 2:
                 System.out.print("!(");
-                print();
+                cond.print();
                 System.out.print(")");
                 break;
             case 3:
-                Cmpr cmpr2 = new Cmpr();
-                cmpr2.print();
+                cmpr.print();
                 System.out.print("or");
-                print();
+                cond.print();
                 break;
         }
     }

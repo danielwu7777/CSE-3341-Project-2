@@ -1,68 +1,63 @@
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Queue;
 
 class If {
-    // Queue to store if an 'else' statement exists where
-    // 1 means means it exists and 0 means it does not
-    static Queue<Integer> queue = new LinkedList<Integer>();
+    // Boolean to store if an 'else' statement exists where
+    // true means means it exists and false means it does not
+    boolean b;
+    Cond cond;
+    StatementSeq firstStmtSeq;
+    StatementSeq secondStatementSeq;
 
-    public void parse(Core currentToken, Scanner S) throws IOException {
-        if (currentToken != Core.IF) {
+    public void parse(Scanner S) throws IOException {
+        if (S.currentToken() != Core.IF) {
             S.t = Core.ERROR;
             System.out.println("ERROR: <if> token must start with 'if' terminal");
             System.exit(1);
         }
-        Core nextToken = S.nextToken();
-        Cond cond = new Cond();
-        cond.parse(nextToken, S);
-        nextToken = S.nextToken();
-        if (nextToken != Core.THEN) {
+        S.nextToken();
+        cond = new Cond();
+        cond.parse(S);
+        if (S.currentToken() != Core.THEN) {
             S.t = Core.ERROR;
             System.out.println("ERROR: The 3rd token in <if> token must be 'then' terminal");
             System.exit(1);
         } else {
-            nextToken = S.nextToken();
-            if (nextToken != Core.LBRACE) {
+            S.nextToken();
+            if (S.currentToken() != Core.LBRACE) {
                 S.t = Core.ERROR;
                 System.out.println("ERROR: The 4th token in <if> token must be the '{' terminal");
                 System.exit(1);
             } else {
-                nextToken = S.nextToken();
-                StatementSeq statementSeq = new StatementSeq();
-                statementSeq.parse(nextToken, S);
-                nextToken = S.nextToken();
-                if (nextToken != Core.RBRACE) {
+                S.nextToken();
+                firstStmtSeq = new StatementSeq();
+                firstStmtSeq.parse(S);
+                if (S.currentToken() != Core.RBRACE) {
                     S.t = Core.ERROR;
                     System.out.println("ERROR: The token after stmt-seq in <if> must be the '}' terminal");
                     System.exit(1);
                 } else {
                     // Check for 'else'
-                    // Save scanner position
-                    S.in.mark(1);
-                    nextToken = S.nextToken();
-                    if (nextToken == Core.ELSE) {
-                        queue.add(1);
-                        nextToken = S.nextToken();
-                        if (nextToken != Core.LBRACE) {
+                    S.nextToken();
+                    if (S.currentToken() == Core.ELSE) {
+                        b = true;
+                        if (S.nextToken() != Core.LBRACE) {
                             S.t = Core.ERROR;
                             System.out.println("ERROR: The token after 'else' in <if> must be the '{' terminal");
                             System.exit(1);
                         } else {
-                            nextToken = S.nextToken();
-                            statementSeq.parse(nextToken, S);
-                            nextToken = S.nextToken();
-                            if (nextToken != Core.RBRACE) {
+                            S.nextToken();
+                            secondStatementSeq = new StatementSeq();
+                            secondStatementSeq.parse(S);
+                            if (S.currentToken() != Core.RBRACE) {
                                 S.t = Core.ERROR;
                                 System.out.println(
                                         "ERROR: The token after the stmt-seq in the 'else' case of <if> must be the '}' terminal");
                                 System.exit(1);
                             }
+                            S.nextToken();
                         }
                     } else {
-                        queue.add(0);
-                        // Reset scanner position
-                        S.in.reset();
+                        b = false;
                     }
                 }
             }
@@ -71,17 +66,15 @@ class If {
 
     public void print() {
         System.out.print("if ");
-        Cond cond = new Cond();
         cond.print();
         System.out.println(" then {");
         System.out.print("        ");
-        StatementSeq statementSeq = new StatementSeq();
-        statementSeq.print();
+        firstStmtSeq.print();
         System.out.print("   }");
-        if (queue.remove() == 1) {
+        if (b) {
             System.out.println(" else {");
             System.out.print("        ");
-            statementSeq.print();
+            secondStatementSeq.print();
             System.out.println("   }");
         }
     }
