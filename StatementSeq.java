@@ -24,10 +24,18 @@ class StatementSeq {
         }
     }
 
+    public void sematic() {
+        stmt.semantic();
+        if (b) {
+            stmtSeq.sematic();
+        }
+    }
+
     public void print() {
         queueStmts.remove().print();
         if (b) {
             stmtSeq.print();
         }
     }
+
 }

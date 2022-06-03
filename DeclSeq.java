@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -13,7 +14,9 @@ class DeclSeq {
 
     public void parse(Scanner S) throws IOException {
         decl = new Decl();
-        decl.parse(S);
+        // Send a null ArrayList since we know that variables in <decl>
+        // are in <decl-seq>, which should have global scope
+        decl.parse(S, true, new ArrayList<String>());
         queueDecl.add(decl);
         if (S.currentToken() != Core.BEGIN) {
             b = true;
@@ -24,10 +27,18 @@ class DeclSeq {
         }
     }
 
+    public void sematic() {
+        decl.semantic();
+        if (b) {
+            declSeq.sematic();
+        }
+    }
+
     public void print() {
         queueDecl.remove().print();
         if (b) {
             declSeq.print();
         }
     }
+
 }

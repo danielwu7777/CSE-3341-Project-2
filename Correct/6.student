@@ -1,3 +1,4 @@
+[[ix, iy], [x, y]]
 program
     int x;
 begin

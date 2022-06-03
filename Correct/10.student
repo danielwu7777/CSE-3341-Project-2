@@ -1,3 +1,4 @@
+[[ix, ra, rb, rc], [x, a, b, c, a]]
 program
     int x;
 begin

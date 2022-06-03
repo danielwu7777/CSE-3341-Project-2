@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.List;
 
 class Assign {
     String firstID;
@@ -8,7 +9,7 @@ class Assign {
     int i;
     Expr expr;
 
-    public void parse(Scanner S) throws IOException {
+    public void parse(Scanner S, List<String> stmtList) throws IOException {
         // Must start with ID token
         if (S.currentToken() != Core.ID) {
             S.t = Core.ERROR;
@@ -17,6 +18,8 @@ class Assign {
         } else {
             // Store first ID
             firstID = S.getID();
+            stmtList.add(firstID);
+
             // Next token must be '=' terminal
             if (S.nextToken() != Core.ASSIGN) {
                 S.t = Core.ERROR;
@@ -64,6 +67,8 @@ class Assign {
                         } else {
                             // Store second ID
                             secondID = S.getID();
+                            stmtList.add(secondID);
+
                         }
                         S.nextToken();
                         break;

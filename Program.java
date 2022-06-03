@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 class Program {
     // Boolean to store if a <decl-seq> exists where
@@ -6,6 +9,13 @@ class Program {
     boolean hasDeclSeq;
     DeclSeq ds;
     StatementSeq ss;
+    // Stack of lists of strings for semantic checks
+    static Stack<List<String>> stack = new Stack<>();
+    // List of variables for <decl-seq> which have global scope (semantic checking)
+    static List<String> declSeqList = new ArrayList<String>();
+    // Note: Variables stored in these lists will have "i" as the first character
+    // for integers and "r" as the first character for references with the variable
+    // name appended after
 
     public void parse(Scanner S) throws IOException {
         // Program must start with program token
@@ -19,6 +29,7 @@ class Program {
                 // Parse <decl-seq>
                 ds = new DeclSeq();
                 ds.parse(S);
+                stack.add(declSeqList);
             } else {
                 hasDeclSeq = false;
             }
@@ -43,6 +54,13 @@ class Program {
                 }
             }
         }
+    }
+
+    public void semantic() {
+        if (hasDeclSeq) {
+            ds.sematic();
+        }
+        ss.sematic();
     }
 
     public void print() {

@@ -1,9 +1,12 @@
 import java.io.IOException;
+import java.util.List;
 
 class DeclRef {
     IdList idList;
 
-    public void parse(Scanner S) throws IOException {
+    // Boolean input indicates if the variable should have global scope
+    // stmtList input to add variables to if globalScope is false
+    public void parse(Scanner S, boolean globalScope, List<String> stmtList) throws IOException {
         if (S.currentToken() != Core.REF) {
             S.t = Core.ERROR;
             System.out.println("ERROR: <decl-ref> must start with 'ref' token");
@@ -11,7 +14,7 @@ class DeclRef {
         } else {
             S.nextToken();
             idList = new IdList();
-            idList.parse(S);
+            idList.parse(S, false, globalScope, stmtList);
             if (S.currentToken() != Core.SEMICOLON) {
                 S.t = Core.ERROR;
                 System.out.println("ERROR: The last token in <decl-ref> must be ';' terminal");
@@ -19,6 +22,10 @@ class DeclRef {
             }
             S.nextToken();
         }
+    }
+
+    public void semantic() {
+        idList.semantic();
     }
 
     public void print() {
