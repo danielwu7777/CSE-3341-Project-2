@@ -1,4 +1,4 @@
-[[ix, iy, iz, ra, rb, rc], [x, a]]
+
 program
     int x, y, z;
 ref 

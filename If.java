@@ -78,4 +78,7 @@ class If {
             System.out.println("   }");
         }
     }
+
+    public void semantic() {
+    }
 }

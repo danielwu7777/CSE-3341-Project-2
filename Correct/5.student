@@ -1,4 +1,3 @@
-[[ix], [x, x]]
 program
     int x;
 begin

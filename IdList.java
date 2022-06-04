@@ -50,8 +50,8 @@ class IdList {
 
     public void semantic() {
         List<String> list = Program.stack.pop();
-        // Check for “doubly-declared” variable names.
         int size = list.size();
+        // Check for "doubly-declared" variable names.
         for (int i = 1; i < size - 1; i++) {
             String removed = list.remove(0);
             if (list.contains(removed)) {

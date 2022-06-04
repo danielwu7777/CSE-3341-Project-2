@@ -13,6 +13,7 @@ class Statement {
     Decl decl;
     // List of variables for <stmt> which have local scope (semantic checking)
     List<String> stmtList = new ArrayList<String>();
+
     public void parse(Scanner S) throws IOException {
         switch (S.currentToken()) {
             case ID:
@@ -20,7 +21,7 @@ class Statement {
                 assign = new Assign();
                 assign.parse(S, stmtList);
                 break;
-            case IF: 
+            case IF:
                 i = 2;
                 ifToken = new If();
                 ifToken.parse(S);
@@ -44,9 +45,27 @@ class Statement {
         // Add stmtList to stack
         Program.stack.add(stmtList);
     }
+
     public void semantic() {
-        //
+        switch (i) {
+            case 1:
+                assign.semantic();
+                break;
+            case 2:
+                ifToken.semantic();
+                break;
+            case 3:
+                loop.semantic();
+                break;
+            case 4:
+                out.semantic();
+                break;
+            case 5:
+                decl.semantic();
+                break;
+        }
     }
+
     public void print() {
         switch (i) {
             case 1:
@@ -67,5 +86,4 @@ class Statement {
         }
     }
 
-    
 }

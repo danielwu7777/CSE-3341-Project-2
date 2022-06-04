@@ -38,4 +38,7 @@ class Out {
         expr.print();
         System.out.println(");");
     }
+
+    public void semantic() {
+    }
 }

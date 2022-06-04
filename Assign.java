@@ -88,6 +88,17 @@ class Assign {
         }
     }
 
+    public void semantic() {
+        List<String> list = Program.stack.pop();
+        switch (i) {
+            case 3:
+                String s = list.remove(0);
+                if (s.charAt(0) != 'r') {
+                    System.out.println();
+                }
+        }
+    }
+
     public void print() {
         System.out.print(firstID);
         System.out.print("=");

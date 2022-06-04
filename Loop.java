@@ -39,4 +39,7 @@ class Loop {
         stmtSeq.print();
         System.out.println("   }");
     }
+
+    public void semantic() {
+    }
 }
